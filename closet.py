@@ -8,13 +8,15 @@ import config as cfg
 
 from datetime import datetime
 from Utils.utils import get_class
+from RelayBoards.denkovi16 import  Denkovi16
+
 
 
 
 
 class Closet(object):
     # Get configuration data from file.
-
+    a= Denkovi16(1)
     hw_modules = {}
     grow_mode = True
     flower_mode = False
@@ -38,7 +40,7 @@ class Closet(object):
             class_ctor = hw_module["class_ctor"]
 
             # Create class object.
-            class_obj = get_class(class_dir+'.'+class_file+'.'+class_name)
+            class_obj = get_class(class_file+'.'+class_name)
 
             # Update HW modules with new hw module object instance.
             self.hw_modules[class_name] = class_obj(class_ctor)
