@@ -1,20 +1,12 @@
-
-
-
-import json
 import os
-import configparser
+import sys
 import time
-from datetime import datetime
-#import datetime
+
+import datetime
 import schedule
-import Auto.
+import config as cfg
 
-
-
-#from RelayBoards.denkovi16 import Denkovi16
-
-
+from datetime import datetime
 from Utils.utils import get_class
 
 
@@ -22,16 +14,10 @@ from Utils.utils import get_class
 
 class Closet(object):
     # Get configuration data from file.
-    script_dir = str(os.path.dirname(os.path.realpath(__file__)))
-    config_file = open(str(script_dir+"/config.json"), "r+")
-    data = configparser.Config
-    # Get modules numbers.
-    hm_num = data['Modules']
+
     hw_modules = {}
-    smart_watering_fleg = data["smart_water"]
     grow_mode = True
     flower_mode = False
-
 
     def __init__(self):
         # Get all hw that connected to closet.
@@ -40,26 +26,22 @@ class Closet(object):
 
     def get_hw_modules(self):
         i = 1
-        while i <= self.hm_num:
-            data = self.data
+        while i <= cfg.Modules:
 
+            # Get class dir file name.
+            hw_module = getattr(cfg, "HW"+str(i))
+            class_dir = hw_module["class_dir"]
+            class_file = hw_module["class_file"]
+            class_name = hw_module["class_name"]
 
-            # Get base class and sub class names.
-            bclass = data["HW_M" + str(i)]["bclass"]
-            sclass = data["HW_M" + str(i)][bclass]["sclass"]
-#            dir = data["HW_M" + str(i)]["dir"]
-            file = data["HW_M" + str(i)]["file"]
-            # Get constructor params for relay board.
-            cfg = data["HW_M" + str(i)][bclass][sclass]
+            # Get constructor params.
+            class_ctor = hw_module["class_ctor"]
 
-
-            # Create object.
-            class_obj = get_class("RelayBoards.denkovi16.Denkovi16")
-
-
+            # Create class object.
+            class_obj = get_class(class_dir+'.'+class_file+'.'+class_name)
 
             # Update HW modules with new hw module object instance.
-#            self.hw_modules[sclass] = class_obj(cfg)
+            self.hw_modules[class_name] = class_obj(class_ctor)
 
             i += 1
 

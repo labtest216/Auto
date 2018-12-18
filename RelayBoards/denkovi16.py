@@ -1,6 +1,6 @@
-#!/usr/bin/python3
 from serial import Serial
-from .relayboards import RelayBoard
+from RelayBoards.relayboards import RelayBoard
+import Utils.utils as dprint
 
 
 class Denkovi16(RelayBoard):
@@ -12,8 +12,13 @@ class Denkovi16(RelayBoard):
     switches_off = {"1": "01-//", "2": "02-//", "3": "03-//", "4": "04-//", "5": "05-//", "6": "06-//", "7": "07-//", "8": "08-//", "9": "09-//", "10": "10-//", "11": "11-//", "12": "12-//", "13": "13-//", "14": "14-//", "15": "15-//", "16": "16-//"}
     switches_on = {"1": "01+//", "2": "02+//", "3": "03+//", "4": "04+//", "5": "05+//", "6": "06+//", "7": "07+//", "8": "08+//", "9": "09+//", "10": "10+//", "11": "11+//", "12": "12+//", "13": "13+//", "14": "14+//", "15": "15+//", "16": "16+//"}
 
+    def __int__(self, cfg):
+        super().__init__(self, cfg)
+        self.com = Serial(self.cfg["interface"]["com"], self.cfg["interface"]["br"], 8, 'N', 1)
+        print("c")
+        self.init_com()
+
     def init_com(self):
-        self.com = Serial(self.cfg["Interface"]["comName"], self.cfg["Interface"]["baudRate"], 8, 'N', 1)
         if self.com.is_open:
             dprint("Communication with relay board open.")
             self.init_relay_card()

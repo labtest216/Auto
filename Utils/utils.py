@@ -1,4 +1,3 @@
-#!/usr/bin/python
 import smtplib, socket, time, os, signal, json, sys
 import traceback
 from email.mime.text import MIMEText

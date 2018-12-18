@@ -1,12 +1,18 @@
-#!/usr/bin/python3
 from HwModule.hw_modules import HwModule
-#from abc import ABC, ABCMeta, abstractmethod
 
 
 class RelayBoard(HwModule):
     """Base class for switches card."""
 
-    #@abstractmethod
+    def __int__(self, cfg):
+        super().__init__(self, cfg)
+        self.cfg = cfg
+        self.sw_num = cfg["sw_num"]
+        print("b")
+
+
+    def init_com(self): pass
+
     def set_switch(self, switch_num, mode): pass
 
     def set_water_on(self):
