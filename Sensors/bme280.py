@@ -1,10 +1,10 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import time
 
 import smbus
 
-from HwModule.hw_modules import Sensor
+from Sensors.sensors import Sensor
 
 
 class MAX44009(Sensor):

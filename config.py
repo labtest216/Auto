@@ -13,7 +13,8 @@ HW1 = {
     "class_name": "Denkovi16",
     "class_ctor": {
         "hw_type": "RelayBoard",
-        "sw_num": 16,
+        "hw_name": "Denkovi16",
+        "num_of_relay": 16,
         "interface": {"name": "UART", "com": "/dev/ttyUSB0", "br": 9600},
         "led1": 1,
         "fan1": 2,

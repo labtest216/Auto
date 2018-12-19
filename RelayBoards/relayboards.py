@@ -1,25 +1,16 @@
-from HwModule.hw_modules import HwModule
+#!/usr/bin/python3
+from HwModule.hw_modules import HwM
 
 
-class RelayBoard(HwModule):
-    """Base class for switches card."""
+class RelayBoard(HwM):
 
-    def __int__(self, cfg):
-        super().__init__(self, cfg)
-        self.cfg = cfg
-        self.sw_num = cfg["sw_num"]
-        print("b")
+    def __init__(self, cfg):
+        super().__init__(cfg)
+        self.hw_name = cfg["hw_name"]
+        self.num_of_relay = cfg["num_of_relay"]
 
-
-    def init_com(self): pass
+    def init_board(self): pass
 
     def set_switch(self, switch_num, mode): pass
 
-    def set_water_on(self):
-        self.set_switch(self.cfg["Connections"]["waterpump_switch"]["sw"], 1)
-
-    def set_water_off(self):
-        self.set_switch(self.cfg["waterpump_switch"], 0)
-
-
-
+    def send_and_wait(data_to_send, data_to_get): pass
