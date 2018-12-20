@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 from serial import Serial
-from Utils.utils import dprint
 from RelayBoards.relayboards import RelayBoard
 
 
@@ -21,30 +20,30 @@ class Denkovi16(RelayBoard):
 
     def init_com(self):
         if self.com.is_open:
-            dprint("Communication with relay board open.")
+            self.dprint("Communication with relay board open.")
             self.init_relay_card()
         else:
-            dprint("Com can not open, Communication with relay board fail.")
+            self.dprint("Com can not open, Communication with relay board fail.")
 
 
 
     def init_board(self):
         if self.send_and_wait(self.all_switches_off, "off") == 0:
             if self.send_and_wait(self.relay_card_test, "\x00\x00") == 0:
-                u.dprint(u.f_name() + " pass")
+                self.dprint(f_name() + " pass")
                 return 0
             else:
-                u.dprint(u.f_name() + " fail")
+                self.dprint(f_name() + " fail")
                 return -1
         else:
-            u.dprint(u.f_name() + " fail")
+            self.dprint(f_name() + " fail")
             return -1
 
         # Switch On =1, Switch Off=0 .
 
     def send_and_wait(data_to_send, data_to_get):
         self.com.write(data_to_send)
-        
+
 
 
 
@@ -53,8 +52,8 @@ class Denkovi16(RelayBoard):
         if mode == 1:  # Switch On.
             feedback = self.switches_on[str(switch_num)]
             if self.send_and_wait(self.switches_on[str(switch_num)], feedback) == 0:
-                u.dprint(u.f_name() + " number " + str(switch_num) + " on pass")
+                self.dprint(f_name() + " number " + str(switch_num) + " on pass")
                 return 0
             else:
-                u.dprint(u.f_name() + " fail")
+                self.dprint(f_name() + " fail")
                 return -1
