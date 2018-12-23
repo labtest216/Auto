@@ -7,6 +7,10 @@ from Utils.utils import dprint, f_name
 
 
 class Max44009(Sensor):
+    """
+        Sensor measure light level.
+
+        """
 
     def __init__(self, cfg):
         super().__init__(cfg)

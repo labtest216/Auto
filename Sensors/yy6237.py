@@ -1,18 +1,17 @@
-
 import Adafruit_BBIO.ADC as ADC
 from Sensors.sensors import Sensor
 
 
 
-class Yl_69(Sensor):
+class Yy6237(Sensor):
     """
-    Sensor measure soil conductance level.
-    https://randomnerdtutorials.com/guide-for-soil-moisture-sensor-yl-69-or-hl-69-with-the-arduino/
+    Sensor measure soil PH level.
+    https://scidle.com/how-to-use-a-ph-sensor-with-arduino/
 
-    Wet: the output voltage decreases down to 0v on Ao pin.
-    Dry: the output voltage increases up to 5v on Ao pin.
-    Interrupt too much water (Wet): '1' logic 3.3v on pin Do.
-    Interrupt too much Dry:'0' logic 0v on pin Do.
+    PH 14 acidity : the output voltage decreases down to 0v on Ao pin.
+    PH 0 alkalinity: the output voltage increases up to 5v on Ao pin.
+    Interrupt too much acidity : '1' logic 3.3v on pin Do.
+    Interrupt too much alkalinity:'0' logic 0v on pin Do.
     """
 
     def __init__(self, cfg):
@@ -56,4 +55,3 @@ class Yl_69(Sensor):
     def ground_is_dry(self):
         self.dprint(self.get_sample())
         return True
-

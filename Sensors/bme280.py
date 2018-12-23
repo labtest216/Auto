@@ -6,7 +6,10 @@ from Sensors.sensors import Sensor
 
 
 class Bme280(Sensor):
+    """
+            Sensor measure temperature,humidity and pressure level.
 
+            """
     def __init__(self, cfg):
         super().__init__(cfg)
         self.set_calibration()

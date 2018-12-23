@@ -7,6 +7,7 @@ from Sensors.sensors import Sensor
 
 class WaterLevel(Sensor):
     """
+    Sensor measure water level.
     FullY  ---- : Pins=111.
     Half+ ---: Pins=011.
     Half- --:Pins=001.
@@ -44,16 +45,17 @@ class WaterLevel(Sensor):
             self.sample = "EMPTY"
         else:
             self.sample = "UNKNOWN MODE"
+        self.dprint(self.sample_format_display())
         return self.sample
 
     def add_interrupts(self):
-        GPIO.add_event_detect(self.empt, GPIO.FALLING, callback=self.ground_is_wet, bouncetime=300)
-        GPIO.add_event_detect(self.cfg["hw_pins"]["Do"], GPIO.RISING, callback=self.ground_is_dry, bouncetime=300)
+        GPIO.add_event_detect(self.empt, GPIO.FALLING, callback=self.water_is_empty(), bouncetime=300)
+        GPIO.add_event_detect(self.full, GPIO.RISING, callback=self.water_is_full(), bouncetime=300)
 
-    def ground_is_wet(self):
+    def water_is_full(self):
         self.dprint(self.get_sample())
         return True
 
-    def ground_is_dry(self):
+    def water_is_empty(self):
         self.dprint(self.get_sample())
         return True

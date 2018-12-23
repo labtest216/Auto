@@ -5,13 +5,15 @@ FlowDays = 1
 WashDays = 1
 DryDays = 1
 
-AIN4 = "P9_33"
-AIN6 = "P9_35"
-AIN5 = "P9_36"
-AIN2 = "P9_37"
-AIN3 = "P9_38"
-AIN0 = "P9_39"
-AIN1 = "P9_40"
+WiringMap = {
+    "AIN4": "P9_33",
+    "AIN6": "P9_35",
+    "AIN5": "P9_36",
+    "AIN2": "P9_37",
+    "AIN3": "P9_38",
+    "AIN0": "P9_39",
+    "AIN1": "P9_40"
+}
 
 Modules = 4
 
@@ -87,8 +89,21 @@ HW6 = {
         "hw_type": "WaterLevelSensor",
         "hw_name": "waterLevSens",
         "interface": {"Name": "GPIO", "Com": "P9_40,P9_41,P9_42", "ref_voltage": 1.8},
-        "hw_pins": {"vcc":"3.3v","gnd":"gnd","p1":"P9_41","p2":"P9_42","p3":"P9_43"}
+        "hw_pins": {"vcc":"3.3v","gnd":"gnd","p1":"P9_41","p2":"P9_42","p3":"P9_43"},
         "units": "Level"
+    }
+}
+
+HW7 = {
+    "class_dir": "Sensors",
+    "class_file": "yy6237",
+    "class_name": "Yy6237",
+    "class_ctor": {
+        "hw_type": "PhSensor",
+        "hw_name": "Yy6237",
+        "interface": {"Name": "AIN1", "Com": "P9_40", "ref_voltage": 1.8},
+        "hw_pins": {"vcc":"3.3-5v","gnd":"gnd","Do":"P9_41","Ao":"P9_42"},
+        "units": "Volt"
     }
 }
 
