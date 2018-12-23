@@ -1,4 +1,4 @@
-
+#!/usr/bin/python3
 
 import Adafruit_BBIO.GPIO as GPIO
 from Sensors.sensors import Sensor

@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import Adafruit_BBIO.ADC as ADC
 from Sensors.sensors import Sensor
 
