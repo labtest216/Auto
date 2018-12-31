@@ -1,7 +1,6 @@
 import os
 import sys
 import time
-
 import datetime
 import schedule
 import config as cfg
@@ -10,15 +9,7 @@ from datetime import datetime
 from Utils.utils import get_class
 #import RelayBoards.denkovi16
 
-
-
-
-
-
-class Closet(object):
-    # Get configuration data from file.
-    #a=RelayBoards.denkovi16.Denkovi16(cfg.HW1["class_ctor"])
-
+class Closet:
 
     hw_modules = {}
     grow_mode = True
@@ -50,34 +41,8 @@ class Closet(object):
 
             i += 1
 
-    def water_on_timer(self, seconds):pass
-
-    def set_water_on(self):
-        print(str(datetime.now())+"set_water_on")
-
-    def set_water_off(self):
-        print(str(datetime.now())+"set_water_off")
-
-    def set_led1_on(self):
-        print(str(datetime.now())+"set_led_on")
-
-    def set_led1_off(self):
-        print(str(datetime.now()) + "set_led1_off")
-
-    def set_fan_on(self):
-        print(str(datetime.now()) + "set_fan_on")
-
-    def set_fan_off(self):
-        print(str(datetime.now())+"set_fan_of")
-
-    def set_led2_off(self):
-        rb = self.hw_modules[self.data["HW_M1"]["RelayBoard"]["sclass"]]
-        rb.set_water_on()
-
     def get_sensors_samples(self):
         print("get_sensors_samples")
-
-    def smart_watering(self):pass
 
     def start_program(self):
         start_flowering = self.grow_mode(self.data["GrowProgramStart"], self.data["GrowDays"])
@@ -121,23 +86,6 @@ class Closet(object):
         print("dry mode start")
         schedule.every(2).seconds.do(self.get_sensors_samples)
         return self.mode_pending(start_date, days)
-
-
-        # schedule.every(2).day.do(self.water_on())
-        # schedule.every().day.at("20:00").do(self.set_water_on)
-        # schedule.every().day.at("20:01").do(self.set_water_off)
-        #schedule.every().hour.do(self.get_sensors_samples)
-
-        #schedule.every().day.at(self.data["LedOn"]).do(self.set_led1_on)
-        #schedule.every().day.at("6:00").do(self.set_fan_on)
-        #schedule.every().day.at(self.data["LedOff"]).do(self.set_led1_off)
-        #schedule.every().day.at("23:00").do(self.set_fan_off)
-
-
-
-
-
-
 
 
     def is_mode_finish(self, start_date, growing_days):

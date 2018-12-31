@@ -1,18 +1,20 @@
 #!/usr/bin/python3
 
-from flask import Flask
-import requests
+from flask import Flask, abort, request
+import json
+
+class http_listener:
+    app = Flask(__name__)
+
+    @app.route('/', methods=['POST'])
+    def parse_request():
+        if not request.json:
+            abort(400)
+        print(request.json)
+        return json.dumps(request.json)
+
+    if __name__ == '__main__':
+        app.run()
 
 
-#import Utils.utils as u
-
-requests.post("34.210.186.181")
-app = Flask(__name__)
-
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
-
-
-if __name__ == '__main__':
-    app.run()
+a = http_listener()
