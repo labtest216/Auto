@@ -1,19 +1,17 @@
 #!/usr/bin/python3
 
 from flask import Flask
-import Utils.utils as u
+import requests
 
+
+#import Utils.utils as u
+
+requests.post("34.210.186.181")
 app = Flask(__name__)
 
-class HttpListener:
-    cfg = {"a": 1}
-
-
-
-    @app.route("/get/temperature")
-    def get_temperature():
-        return u.dprint("hh")
-        #return "hh"
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
 
 
 if __name__ == '__main__':
