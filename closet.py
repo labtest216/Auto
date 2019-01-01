@@ -14,11 +14,14 @@ class Closet:
     hw_modules = {}
     grow_mode = True
     flower_mode = False
+    samples = {}
 
     def __init__(self):
+
         # Get all hw that connected to closet.
         self.get_hw_modules()
-        # self.init_gpio()
+        # Start growing program.
+        self.start_program()
 
     def get_hw_modules(self):
         i = 1
@@ -42,7 +45,7 @@ class Closet:
             i += 1
 
     def get_sensors_samples(self):
-        print("get_sensors_samples")
+        for sensor in self.hw_modules:
 
     def start_program(self):
         start_flowering = self.grow_mode(self.data["GrowProgramStart"], self.data["GrowDays"])

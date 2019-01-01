@@ -9,3 +9,6 @@ setup(
         'flask',
     ],
 )
+
+pip install pymongo
+pip3 install pymongo
