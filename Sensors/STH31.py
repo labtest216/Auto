@@ -1,5 +1,5 @@
 import smbus
-
+import time
 
 # SHT31D default address.
 SHT31_I2CADDR = 0x45
@@ -44,7 +44,7 @@ class SHT31(object):
 
     def read_status(self):
         self._writeCommand(SHT31_READSTATUS);
-		buffer = _bus.read_i2c_block_data(self._addr, 0x00, 3)
+	buffer = self._bus.read_i2c_block_data(self._addr, 0x00, 3)
 
         stat = buffer[0] << 8 | buffer[1]
         if buffer[2] != self._crc8(buffer[0:2]):
@@ -81,7 +81,7 @@ class SHT31(object):
     def read_temperature_humidity(self):
         self._writeCommand(SHT31_MEAS_HIGHREP)
         time.sleep(0.1)
-		data = _bus.read_i2c_block_data(self._addr, 0x00, 6)
+	data = self._bus.read_i2c_block_data(self._addr, 0x00, 6)
         
         if data[2] != self._crc8(data[0:2]):
             return (float("nan"), float("nan"))
@@ -89,17 +89,23 @@ class SHT31(object):
 		# Convert the data
         rawTemperature = data[0] * 256 + data[1]
         temperature = -45 + (175 * rawTemperature / 65535.0)
-		ftemperature = -49 + (315 * temp / 65535.0)
-		humidity = 100 * (data[3] * 256 + data[4]) / 65535.0
+	ftemperature = -49 + (315 * rawTemperature / 65535.0)
+	humidity = 100 * (data[3] * 256 + data[4]) / 65535.0
 
         if data[5] != self._crc8(data[3:5]):
             return (float("nan"), float("nan"))								   
         return (temperature, ftemperature, humidity)
+    def read(self):
+	(temperature, ftemperature, humidity) = self.read_temperature_humidity()
+	print(str(temperature)+"[c] "+str(ftemperature)+"[f] "+str(humidity)+"[%]")
+	return (temperature,ftemperature,humidity)
 
     def read_temperature(self):
         (temperature, ftemperature, humidity) = self.read_temperature_humidity()
         return temperature
-
+    def read_ftempperature(self):
+	(temperature,ftemperature, humitity) =self.read_temperature_humidity()
+	return ftemperature
     def read_humidity(self):
         (temperature, ftemperature, humidity) = self.read_temperature_humidity()
         return humidity
@@ -119,3 +125,6 @@ class SHT31(object):
                 else:
                     crc = (crc << 1)
         return crc & 0xFF
+s=SHT31(0x45,2)
+th=s.read()
+
